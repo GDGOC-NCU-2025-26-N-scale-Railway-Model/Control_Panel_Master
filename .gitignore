@@ -77,5 +77,6 @@ Desktop.ini
 *.suo       # Visual Studio Solution User Options
 *.sln.docstates # Visual Studio
 
-# Visual Studio Code
+# Visual Studio Code and extension
 .vscode/
+.cache/

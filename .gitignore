@@ -80,3 +80,4 @@ Desktop.ini
 # Visual Studio Code and extension
 .vscode/
 .cache/
+.clangd

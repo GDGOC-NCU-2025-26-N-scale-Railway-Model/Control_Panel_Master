@@ -5,6 +5,9 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 52c1745 (feat: Finish the initialization functions partially)
 #include "esp_netif.h" /*Possible missing included heading is reported inside this, but building is still working.*/
 #include "esp_event.h"
 #include "esp_wifi.h"
@@ -14,6 +17,7 @@
 #include "esp_event.h"
 #include "esp_wifi.h"
 >>>>>>> 0877032 (feat: Finish the initialization functions partially)
+<<<<<<< HEAD
 =======
 #include "esp_netif.h"
 #include "esp_event.h"
@@ -25,6 +29,8 @@
 #include "esp_wifi.h"
 #include <stdint.h>
 >>>>>>> 31ff734 (feat: Finish send testing code)
+=======
+>>>>>>> 52c1745 (feat: Finish the initialization functions partially)
 #include <string.h>
 #include "freertos/semphr.h"
 #include "freertos/timers.h"
@@ -73,6 +79,9 @@ void comm_peer_setup(void){
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 52c1745 (feat: Finish the initialization functions partially)
 /*TODO: Finish the test*/
 
 void send_task(void *pvParameter){
@@ -89,6 +98,7 @@ void comm_deinit(peer_t *peers){
     ESP_ERROR_CHECK(esp_now_deinit());
 
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> 0877032 (feat: Finish the initialization functions partially)
 /*TODO: Finish the test sending and de-initialization*/
@@ -100,6 +110,16 @@ void send_task(void *pvParameter){
     const char *msg = "ESP-NOW string testing.";
     uint8_t broadcast_mac[6] = SLAVE_MACS;
     ESP_ERROR_CHECK(esp_now_send(broadcast_mac, (uint8_t *)msg, strlen(msg)));
+=======
+/*TODO: Finish the test sending and de-initialization*/
+
+void send_task(void *pvParameter){
+
+}
+
+esp_err_t send_test(const uint8_t *peer_addr, test_data_t *data){
+    
+>>>>>>> 52c1745 (feat: Finish the initialization functions partially)
 }
 
 void comm_deinit(peer_t *peers){
@@ -110,7 +130,10 @@ void comm_deinit(peer_t *peers){
     ESP_ERROR_CHECK(esp_now_deinit());
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 0877032 (feat: Finish the initialization functions partially)
 =======
+=======
+>>>>>>> 52c1745 (feat: Finish the initialization functions partially)
 >>>>>>> 0877032 (feat: Finish the initialization functions partially)
 }

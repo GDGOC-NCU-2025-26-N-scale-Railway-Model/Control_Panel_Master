@@ -2,10 +2,16 @@
 #include "esp_err.h"
 #include "esp_now.h"
 #include "esp_wifi_types_generic.h"
+<<<<<<< HEAD
 #include "esp_netif.h" /*Possible missing included heading is reported inside this, but building is still working.*/
 #include "esp_event.h"
 #include "esp_wifi.h"
 #include <stdint.h>
+=======
+#include "esp_netif.h"
+#include "esp_event.h"
+#include "esp_wifi.h"
+>>>>>>> 0877032 (feat: Finish the initialization functions partially)
 #include <string.h>
 #include "freertos/semphr.h"
 #include "freertos/timers.h"
@@ -51,6 +57,7 @@ void comm_peer_setup(void){
     }
 }
 
+<<<<<<< HEAD
 /*TODO: Finish the test*/
 
 void send_task(void *pvParameter){
@@ -66,4 +73,23 @@ void comm_deinit(peer_t *peers){
 
     ESP_ERROR_CHECK(esp_now_deinit());
 
+=======
+/*TODO: Finish the test sending and de-initialization*/
+
+void send_task(void *pvParameter){
+
+}
+
+esp_err_t send_test(const uint8_t *peer_addr, test_data_t *data){
+    
+}
+
+void comm_deinit(peer_t *peers){
+    for(uint8_t i = 0; i < PEER_NUM; i++){
+        ESP_ERROR_CHECK(esp_now_del_peer(peers->mac));
+    }
+
+    ESP_ERROR_CHECK(esp_now_deinit());
+
+>>>>>>> 0877032 (feat: Finish the initialization functions partially)
 }

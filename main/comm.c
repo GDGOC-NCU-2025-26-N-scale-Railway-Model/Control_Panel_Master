@@ -3,10 +3,16 @@
 #include "esp_now.h"
 #include "esp_wifi_types_generic.h"
 <<<<<<< HEAD
+<<<<<<< HEAD
 #include "esp_netif.h" /*Possible missing included heading is reported inside this, but building is still working.*/
 #include "esp_event.h"
 #include "esp_wifi.h"
 #include <stdint.h>
+=======
+#include "esp_netif.h"
+#include "esp_event.h"
+#include "esp_wifi.h"
+>>>>>>> 0877032 (feat: Finish the initialization functions partially)
 =======
 #include "esp_netif.h"
 #include "esp_event.h"
@@ -58,6 +64,7 @@ void comm_peer_setup(void){
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*TODO: Finish the test*/
 
 void send_task(void *pvParameter){
@@ -74,6 +81,8 @@ void comm_deinit(peer_t *peers){
     ESP_ERROR_CHECK(esp_now_deinit());
 
 =======
+=======
+>>>>>>> 0877032 (feat: Finish the initialization functions partially)
 /*TODO: Finish the test sending and de-initialization*/
 
 void send_task(void *pvParameter){
@@ -91,5 +100,8 @@ void comm_deinit(peer_t *peers){
 
     ESP_ERROR_CHECK(esp_now_deinit());
 
+<<<<<<< HEAD
+>>>>>>> 0877032 (feat: Finish the initialization functions partially)
+=======
 >>>>>>> 0877032 (feat: Finish the initialization functions partially)
 }

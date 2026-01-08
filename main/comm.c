@@ -6,10 +6,13 @@
 #include "esp_event.h"
 #include "esp_wifi.h"
 #include <stdint.h>
+#include <stdio.h>
 #include <string.h>
 #include "freertos/semphr.h"
 #include "freertos/timers.h"
 #include "esp_log.h"
+
+#define MAC_LEN 6
 
 const char *TAG = "comm:";
 
@@ -26,13 +29,18 @@ void wifi_init(void){
 
 void comm_init(void){
 
+    wifi_init();
+
     ESP_ERROR_CHECK(esp_now_init());
+
+    ESP_ERROR_CHECK(esp_now_register_send_cb(on_data_sent));
     printf("The ESP-NOW has been initialized successfully.");    
     return;
 }
 
-void on_data_sent(const uint8_t *mac_addr, esp_now_send_status_t status){
+void on_data_sent(const esp_now_send_info_t *info, esp_now_send_status_t status){
         ESP_LOGI(TAG, "Last packet send status: %s", status == ESP_NOW_SEND_SUCCESS ? "Delivery Success" : "Delivery Fail");
+
 }
 
 
@@ -40,7 +48,8 @@ void comm_peer_setup(void){
     peer_t peers[] = PEER_LIST;
     for(int i = 0; i < PEER_NUM; i++){
         esp_now_peer_info_t peer_handler;
-        memcpy(peer_handler.peer_addr, peers[i].mac, sizeof(peer_handler.peer_addr)); 
+        memset(&peer_handler, 0, sizeof(esp_now_peer_info_t));
+        memcpy(peer_handler.peer_addr, peers[i].mac, MAC_LEN); 
         /*Note: List can not be directly assigned, memcpy is required*/
         peer_handler.channel = peers[i].channel;
         peer_handler.ifidx = WIFI_IF_STA;
@@ -55,14 +64,20 @@ void comm_peer_setup(void){
 void send_task(void *pvParameter){
     const char *msg = "ESP-NOW string testing.";
     uint8_t broadcast_mac[6] = SLAVE_MACS;
-    ESP_ERROR_CHECK(esp_now_send(broadcast_mac, (uint8_t *)msg, strlen(msg)));
+    
+    while(1) {
+        esp_err_t res = esp_now_send(broadcast_mac, (uint8_t *)msg, strlen(msg));
+        if (res != ESP_OK) {
+            ESP_LOGE(TAG, "Send error: 0x%x", res);
+        }
+        vTaskDelay(pdMS_TO_TICKS(1000));
+    }
 }
 
 void comm_deinit(peer_t *peers){
     for(uint8_t i = 0; i < PEER_NUM; i++){
-        ESP_ERROR_CHECK(esp_now_del_peer(peers->mac));
+        ESP_ERROR_CHECK(esp_now_del_peer(peers[i].mac));
     }
 
     ESP_ERROR_CHECK(esp_now_deinit());
-
 }

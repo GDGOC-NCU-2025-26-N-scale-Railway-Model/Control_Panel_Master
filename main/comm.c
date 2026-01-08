@@ -1,11 +1,11 @@
 #include "comm.h"
-#include "custom_protocol.h"
 #include "esp_err.h"
 #include "esp_now.h"
 #include "esp_wifi_types_generic.h"
-#include "esp_netif.h"
+#include "esp_netif.h" /*Possible missing included heading is reported inside this, but building is still working.*/
 #include "esp_event.h"
 #include "esp_wifi.h"
+#include <stdint.h>
 #include <string.h>
 #include "freertos/semphr.h"
 #include "freertos/timers.h"
@@ -51,14 +51,12 @@ void comm_peer_setup(void){
     }
 }
 
-/*TODO: Finish the test sending and de-initialization*/
+/*TODO: Finish the test*/
 
 void send_task(void *pvParameter){
-
-}
-
-esp_err_t send_test(const uint8_t *peer_addr, test_data_t *data){
-    
+    const char *msg = "ESP-NOW string testing.";
+    uint8_t broadcast_mac[6] = SLAVE_MACS;
+    ESP_ERROR_CHECK(esp_now_send(broadcast_mac, (uint8_t *)msg, strlen(msg)));
 }
 
 void comm_deinit(peer_t *peers){
